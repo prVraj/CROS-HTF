@@ -3,7 +3,9 @@
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
+  "type":"module",
   "scripts": {
+    "dev": "nodemon -r dotenv/config --experimental-json-modules src/index.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "Hidden Leaf",
@@ -18,5 +20,8 @@
     "mongoose": "^8.0.3",
     "mongoose-aggregate-paginate-v2": "^1.0.7",
     "path": "^0.12.7"
+  },
+  "devDependencies": {
+    "nodemon": "^3.0.2"
   }
 }
