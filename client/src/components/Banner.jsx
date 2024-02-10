@@ -12,7 +12,7 @@ const Banner = () => (
         </div>
       </header>
       <div className="max-w-[1170px] mx-auto py-50 text-center text-white pt-[20%]">
-        <h1 className="sm:text-5xl text-4xl font-bold ">Contactless Restaurant Ordering System</h1>
+        <h1 className="sm:text-5xl text-2xl font-bold ">Contactless Restaurant Ordering System</h1>
         <h4 className="text-xl py-5">A contactless restaurant ordering system revolutionizes the dining experience by leveraging technology to enhance convenience and safety for both customers and staff.</h4>
         <p className="text-xl">With features like order customization, contactless payments, and seamless integration with POS systems, restaurants can streamline operations while catering to evolving customer preferences in an increasingly digital world.</p>
       </div>
