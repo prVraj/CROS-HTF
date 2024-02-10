@@ -1,14 +1,14 @@
 import mongoose from "mongoose";
 
 const orderSchema = new mongoose.Schema({
-    refreshToken: {
-        type: String,
+    user: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'User',
         required: true 
     },
     menuItems: [{
         item: {
-            type: mongoose.Schema.Types.ObjectId,
-            ref: 'Menu',
+            type: String,
             required: true
         },
         quantity: {
@@ -23,11 +23,6 @@ const orderSchema = new mongoose.Schema({
     totalAmount: {
         type: Number,
         required: true
-    },
-    orderStatus: {
-        type: String,
-        enum: ['Placed', 'Preparing', 'Ready'],
-        default: 'Placed'
     }
 });
 

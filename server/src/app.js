@@ -11,7 +11,11 @@ app.use(express.json({limit: "16kb"}))
 app.use(cookieParser())
 
 import orderRouter from "./routes/order.route.js";
+import userRouter from "./routes/user.route.js";
+import menuRouter from "./routes/menu.route.js";
 
 app.use("/order", orderRouter);
+app.use("/user", userRouter);
+app.use("/menu", menuRouter);
 
 export default app;
