@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import Items from "./Items.jsx";
 
 export default function Cards() {
+  
   const menu = [
     {
       id: 1,
@@ -43,59 +44,31 @@ export default function Cards() {
 
   const [show, setShow] = useState(false);
 
-//   return (
-//     <div class="grid sm:grid-cols-2 grid-cols-1 items-center">
-//       {menu.map((category) => (
-//         <div >
-//         <div key={category.id}>
-//           <h2 className="sm:text-[45px] text-[35px] font-bold text-center">
-//             {category.name}
-//           </h2>
-//           <div className="mx-auto max-w-xs px-8">
-//             <p className="text-center font-semibold text-gray-600">
-//               Pay once, own it forever
-//             </p>
-//             <button
-//               className="mt-6 w-full bg-indigo-600 text-white font-semibold py-3 rounded-md hover:bg-indigo-700"
-//               onClick={() => setShow(!show)}
-//             >
-//               {show ? "Hide Items" : "Show Items"}
-//             </button>
-//             {show && <Items dishes={category.items} />}
-//           </div>
-//         </div>
-//         </div
-//       ))}
-//     </div>
-//     </div>
+  return (
     
-//   );
-// }/
+    <div class="grid sm:grid-cols-2 grid-cols-1 items-center bg-slate-700 ">
 
-return (
- 
-  <div className="grid sm:grid-cols-2 grid-cols-1 items-center">
-  {menu.map((category) => (
-    <div key={category.id} className="p-4">
-      <div>
-        <h2 className="sm:text-3xl text-2xl font-bold text-center">
-          {category.name}
-        </h2>
-        <div className="mx-auto max-w-xs px-8">
-          <p className="text-center font-semibold text-gray-600">
-            Pay once, own it forever
-          </p>
-          <button
-            className="mt-6 w-full bg-indigo-600 text-white font-semibold py-3 rounded-md hover:bg-indigo-700"
-            onClick={() => setShow(!show)}
-          >
-            {show ? "Hide Items" : "Show Items"}
-          </button>
-          {show && <Items dishes={category.items} />}
+      {menu.map((category) => (
+        <div >
+        <div key={category.id}>
+          <h2 className="sm:text-[45px] text-[35px] font-bold text-center">
+            {category.name}
+          </h2>
+          <div className="mx-auto max-w-xs px-8">
+            <p className="text-center font-semibold text-gray-600">
+              Pay once, own it forever
+            </p>
+            <button
+              className="mt-6 w-full bg-indigo-600 text-white font-semibold py-3 rounded-md hover:bg-indigo-700"
+              onClick={() => setShow(!show)}
+            >
+              {show ? "Hide Items" : "Show Items"}
+            </button>
+            {show && <Items dishes={category.items} />}
+          </div>
         </div>
-      </div>
+        </div>
+      ))}
     </div>
-  ))}
-</div>
-);
+  );
 }
