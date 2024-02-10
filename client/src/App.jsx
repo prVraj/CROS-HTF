@@ -7,7 +7,7 @@ export default function App() {
   return (
     <div>
       <Banner />
-      <Cards />
+      {/* <Cards /> */}
       <Menu/>
     </div>
   );
