@@ -30,7 +30,7 @@ export default function Items({ dishes }) {
         className="text-xl font-bold"
         onChange={(event) => handleSelect(event, dish)}
       >
-        <option value="">Select {dish.name}</option>
+        <option value="" className="items-center">Select {dish.name}</option>
         {selectOptions(dish)}
       </select>
     </div>
