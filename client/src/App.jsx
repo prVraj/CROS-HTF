@@ -1,11 +1,12 @@
 import React from "react";
-import Vraj from "./components/Vraj";
-
+import Banner from "./components/Banner.jsx";
+import Cards from "./components/Cards.jsx";
 
 export default function App() {
   return (
     <div>
-      <Vraj/>
+      <Banner />
+      <Cards />
     </div>
   );
 }
