@@ -1,5 +1,8 @@
+import { ApiError } from '../utils/ApiError.js';
+import { User } from '../models/user.models.js';
 import {Order} from '../models/order.models.js';
 import { ApiResponse } from '../utils/ApiResponse.js';
+import { Menu } from '../models/menu.models.js';
 
 // const OrderController = {
 //     async createOrder(req, res) {
@@ -50,14 +53,20 @@ import { ApiResponse } from '../utils/ApiResponse.js';
 // };
 
 export const createOrder = async (req,res) =>{
-    console.log(req.body);
-    const token = req.cookies?.refreshToken || req.header("Authorization")?.replace("Bearer ", "")
+    // console.log(req.body);
     const {menuItems, totalAmount} = req.body;
+    const user = await User.findById(req.user._id);
+    if(menuItems.length == 0){
+        throw  new ApiError(400, "Menu Items are Required...!!!")
+    }
+    console.log(user);
+
         try {
-            const order = new Order({
-                refreshToken, menuItems, totalAmount
-            });
-            await order.save();
+            const order = await Order.create({user:user._id, menuItems, totalAmount});
+            if(!order){
+                throw new ApiError(500, "Order Not Created...!!!");
+            }
+            user.orders_id.push(order._id)
             res.status(201).json(new ApiResponse(201,order, "Order Created SUccessfully...!!!"));
         } catch (error) {
             res.status(500).json({ message: error.message });
