@@ -1,4 +1,5 @@
 import {Order} from '../models/order.models.js';
+import { ApiResponse } from '../utils/ApiResponse.js';
 
 // const OrderController = {
 //     async createOrder(req, res) {
@@ -48,18 +49,22 @@ import {Order} from '../models/order.models.js';
 //     }
 // };
 
-export const createOrder = async () =>{
+export const createOrder = async (req,res) =>{
     console.log(req.body);
+    const token = req.cookies?.refreshToken || req.header("Authorization")?.replace("Bearer ", "")
+    const {menuItems, totalAmount} = req.body;
         try {
-            const order = new Order(req.body);
+            const order = new Order({
+                refreshToken, menuItems, totalAmount
+            });
             await order.save();
-            res.status(201).json(order);
+            res.status(201).json(new ApiResponse(201,order, "Order Created SUccessfully...!!!"));
         } catch (error) {
             res.status(500).json({ message: error.message });
         }
 }
 
-export const getOrderById = async () =>{
+export const getOrderById = async (req,res) =>{
     try {
         const order = await Order.findById(req.params.id);
         if (!order) {
@@ -71,13 +76,13 @@ export const getOrderById = async () =>{
     }
 }     
 
-export const getOrders = async () =>{
-    try {
-        const orders = await Order.find();
-        res.json(orders);
-    } catch (error) {
-        res.status(500).json({ message: error.message });
-    }
-}
+export const getOrders = async (req, res) => {
+  try {
+    const orders = await Order.find();
+    res.json(orders);
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+};
 
 // module.exports = OrderController;

@@ -12,6 +12,6 @@ app.use(cookieParser())
 
 import orderRouter from "./routes/order.route.js";
 
-app.use("/customer", orderRouter);
+app.use("/order", orderRouter);
 
 export default app;

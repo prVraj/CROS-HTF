@@ -1,10 +1,9 @@
 import mongoose from "mongoose";
 
 const orderSchema = new mongoose.Schema({
-    user: {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: 'User',
-        required: true
+    refreshToken: {
+        type: String,
+        required: true 
     },
     menuItems: [{
         item: {
@@ -15,6 +14,10 @@ const orderSchema = new mongoose.Schema({
         quantity: {
             type: Number,
             default: 1
+        },
+        price : {
+            type: Number,
+            required: true
         }
     }],
     totalAmount: {

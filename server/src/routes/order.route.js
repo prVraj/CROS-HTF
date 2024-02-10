@@ -3,8 +3,8 @@ import { createOrder, getOrderById, getOrders } from "../controllers/order.contr
 
 const router = Router();
 
-router.route("/order").post(createOrder);
-router.route("/order/:id").get(getOrderById);
-router.route("/orders").get(getOrders);
+router.route("/create").post(createOrder);
+router.route("/find/:id").get(getOrderById);
+router.route("/all").get(getOrders);
 
 export default router;
