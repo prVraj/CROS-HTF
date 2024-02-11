@@ -7,11 +7,13 @@ export const verifyCookie = async (req, res, next) => {
     const token =
       req.cookies?.userId ||
       req.header("Authorization")?.replace("Bearer ", "");
+    
+    console.log(req.cookies)
 
-    console.log(token);
+    console.log(token)
 
     if (!token) {
-      throw new ApiError(401, "Access Denied")
+      registerUser(req,res);
     }
 
     const user = await User.findById(token).select();

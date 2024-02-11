@@ -52,24 +52,35 @@ const RestaurantMenu = () => {
     setSelectedItems(selectedItems);
   };
 
+  const [isOrdered,setisOrdered] = useState(false);
+
+  const total = () => (
+    selectedItems.reduce((total, item) => total + (item.price * item.quantity), 0)
+  )
+  
   const handleOrderSubmit = () => {
     // Format the selected items for submission
-    const orderData = selectedItems.map(item => ({
-      name: item.name,
-      quantity: item.quantity,
-      price: item.price * item.quantity // Calculate total price for each item
+    console.log("Handle Order Submit")
+    const menuItems = selectedItems.map(dish => ({
+      item : dish.name,
+      quantity: dish.quantity,
+      price: dish.price  // Calculate total price for each item
     }));
 
+    const totalAmount = total();
+    console.log({ menuItems, totalAmount });
+
     // Send a POST request to the server with the order data
-    fetch('/orders/create', {
+    fetch('http://localhost:8000/order/create', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'
       },
-      body: JSON.stringify(orderData)
+      body: JSON.stringify({menuItems,totalAmount})
     })
     .then(response => {
       // Handle response
+      console.log(response)
       console.log('Order submitted successfully');
     })
     .catch(error => {
@@ -108,9 +119,27 @@ const RestaurantMenu = () => {
         <h2 className="text-xl font-semibold">Desserts</h2>
         {renderItems(desserts)}
       </div>
-      <div className="mt-4">
-        <button onClick={handleOrderSubmit} disabled={selectedItems.length === 0} className="bg-blue-500 text-white px-4 py-2 rounded-md disabled:opacity-50">Order</button>
-      </div>
+      {isOrdered ? (
+        <div className="mt-4">
+          <div className="flex items-center justify-between bg-gray-200 px-4 py-2 rounded-md">
+            <span>Total Amount:</span>
+            <span className="text-blue-500">${total()}</span>
+          </div>
+        </div>
+      ) : (
+        <div className="mt-4">
+          <button
+            onClick={() => {
+              setisOrdered(true);
+              handleOrderSubmit();
+            }}
+            disabled={selectedItems.length === 0}
+            className="bg-blue-500 text-white px-4 py-2 rounded-md disabled:opacity-50"
+          >
+            Order
+          </button>
+        </div>
+      )}
     </div>
   );
 };

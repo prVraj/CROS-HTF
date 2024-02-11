@@ -4,7 +4,7 @@ import { verifyCookie } from "../middlewares/auth.middleware.js";
 
 const router = Router();
 
-router.route("/create").post(verifyCookie, createOrder);
+router.route("/create").post(createOrder);
 router.route("/find/:id").get(getOrderById);
 router.route("/all").get(getOrders);
 
