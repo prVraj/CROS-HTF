@@ -11,6 +11,7 @@ function registerUser() {
         "Content-Type": "application/json",
       },
       body: JSON.stringify({ name: NAME }),
+      credentials: "include",
     })
       .then((res) => res.json())
       .then((data) => console.log(data))

@@ -1,15 +1,17 @@
-import {User} from '../models/user.models.js'
+import { User } from '../models/user.models.js'
 import { ApiError } from '../utils/ApiError.js'
 import { ApiResponse } from '../utils/ApiResponse.js'
 
 export const registerUser = async(req,res) => {
 
-    if(req.user){
-        res.status(200).json(
-            new ApiResponse(200,req.user,"User Already Logged In...!!!"))
+    const {name} = req.body;
+    console.log(req.cookies);
+
+    if(req.cookies?.userId){
+        const user = await User.findById(req.cookies.userId);
+        return res.json(new ApiResponse(201,user, "User Already Exist")); 
     }
 
-    const {name} = req.body;
     if(!name){
         throw new ApiError(401,"Username is Required...!!!")
     }
@@ -20,13 +22,13 @@ export const registerUser = async(req,res) => {
         throw new ApiError(500,"User Not Created")
     }
 
-    res
+    res.cookie("userId", user._id, {
+      secure: true,
+    });
+
+    return res
       .status(200)
-      .cookie("userId", user._id, {
-        httpOnly: true,
-        secure: true,
-        maxAge: 900000,
-      })
-      .json(new ApiResponse(201, user, "User Created Successfully...!"));
+      .json(new ApiResponse(201, {}, "User Created Successfully...!"));
+
 }
 

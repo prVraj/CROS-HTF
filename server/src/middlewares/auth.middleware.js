@@ -1,19 +1,14 @@
 import { User } from "../models/user.models.js";
 import { ApiError } from "../utils/ApiError.js";
-import { registerUser } from "../controllers/user.controllers.js";
+import { ApiResponse } from "../utils/ApiResponse.js";
 
 export const verifyCookie = async (req, res, next) => {
   try {
-    const token =
-      req.cookies?.userId ||
-      req.header("Authorization")?.replace("Bearer ", "");
-    
-    console.log(req.cookies)
+    const token = req.cookies?.userId 
+      // || req.header("Authorization")?.replace("Bearer ", "");
 
-    console.log(token)
-
-    if (!token) {
-      registerUser(req,res);
+    if (token === undefined) {
+      return res.status(400).json(new ApiResponse(400,{},"User Does Not Exist"));
     }
 
     const user = await User.findById(token).select();
@@ -21,6 +16,7 @@ export const verifyCookie = async (req, res, next) => {
     if (!user) {
       throw new ApiError(401, "Invalid Access Token");
     }
+
     req.user = user;
     next();
 

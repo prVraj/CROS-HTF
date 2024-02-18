@@ -58,7 +58,7 @@ const RestaurantMenu = () => {
     selectedItems.reduce((total, item) => total + (item.price * item.quantity), 0)
   )
   
-  const handleOrderSubmit = () => {
+  const handleOrderSubmit =() => {
     // Format the selected items for submission
     console.log("Handle Order Submit")
     const menuItems = selectedItems.map(dish => ({
@@ -73,15 +73,16 @@ const RestaurantMenu = () => {
     // Send a POST request to the server with the order data
     fetch('http://localhost:8000/order/create', {
       method: 'POST',
+      credentials: 'include',
       headers: {
         'Content-Type': 'application/json'
       },
       body: JSON.stringify({menuItems,totalAmount})
     })
-    .then(response => {
+    .then(async response => {
       // Handle response
-      console.log(response)
-      console.log('Order submitted successfully');
+      const data = await response.json()
+      console.log(data);
     })
     .catch(error => {
       // Handle error
